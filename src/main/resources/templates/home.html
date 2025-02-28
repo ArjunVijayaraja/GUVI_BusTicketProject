@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Bus</title>
+    <!--    <link href="../static/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">-->
+    <link th:href="@{/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body>
+<div th:insert="~{header-fragment :: header}"></div>
+
+
+<div class="container justify-content-center align align-content-center ">
+    <div class="card col-lg-10 d-flex justify-content-center align-content-center">
+        <div class="card-body">
+            <h4 class="card-header text-bg-light text-center">Book your tickets</h4>
+            <div class="card-body">
+                <form method="get" th:action="@{/findBus}" th:object="${findBusDto}">
+                    <div>
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-4">
+                                <label for="fromLocation" class="form-label">From Location: </label>
+                                <select class="form-select" id="fromLocation" th:field="*{fromLocation}"
+                                        aria-label="Default select example">
+                                    <option th:value="-1" selected>SELECT</option>
+                                    <option th:each="loc: ${fromLocationList}" th:value="${loc}"
+                                            th:text="${loc}">
+                                    </option>
+                                </select>
+                                <!--                        <p th:errors="*{departmentId}" class="text-danger errTxt"></p>-->
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-4">
+                                <label for="toLocation" class="form-label">From Location: </label>
+                                <select class="form-select" id="toLocation" th:field="*{toLocation}"
+                                        aria-label="Default select example">
+                                    <option th:value="-1" selected>SELECT</option>
+                                    <option th:each="loc: ${toLocationList}" th:value="${loc}"
+                                            th:text="${loc}">
+                                    </option>
+                                </select>
+                                <!--                        <p th:errors="*{departmentId}" class="text-danger errTxt"></p>-->
+                            </div>
+                            <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+                                <label for="tripDate" class="form-label">Trip Date</label>
+                                <input th:field="*{tripDate}" type="date" class="form-control" id="tripDate">
+                                <!--                        <p th:errors="*{appointmentDate}" class="text-danger errTxt"-->
+                                <!--                           th:if="${#fields.hasErrors('appointmentDate')}"></p>-->
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Find Bus</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/bootstrap/bootstrap-5.3.3-dist/js/bootstrap.js}"></script>
+
+</html>

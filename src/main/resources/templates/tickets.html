@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book-Tickets</title>
+    <link href="../static/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div th:insert="~{header-fragment :: header}"></div>
+
+    <div>
+        <div class="card-header  mb-3">
+            <h4>Ticket Booking</h4>
+        </div>
+        <form class="card-body">
+            <div class="container  mb-3">
+                <div>
+                    <label for="fromLocation">From: </label>
+                    <input type="text" id="fromLocation">
+                    <label for="toLocation">To: </label>
+                    <input type="text" id="toLocation">
+                    <label for="ticketPrice">Ticket price: </label>
+                    <input type="number" id="ticketPrice" value="550">
+                    <label for="totalPrice">Total Ticket price: </label>
+                    <input type="number"id=totalPrice readonly>
+                </div>
+                <label for="passengerName">Passenger Name: </label>
+                <input type="text" id="passengerName" required>
+                <label for="passengerSeat">Seat </label>: </label>
+                <select id="passengerSeat">
+                    <option value="1"> Seat 1</option>
+                    <option value="2"> Seat 2</option>
+                    <option value="3"> Seat 3</option>
+
+                </select>
+                <label for="passengerMail">Passenger Mail: </label>
+                <input type="text" id="passengerMail" required>
+                <label for="passengerGender">Passenger Gender: </label>
+                <input type="text" id="passengerGender" maxlength="1" required>
+                <label for="passengerAge">Passenger Age: </label>
+                <input type="text" id="passengerAge" max="100" required>
+                <label for="passengerContact">passenger Contact: </label>
+                <input type="text" id="passengerContact" required>
+                <button id="addPassenger" type="button"> Add</button>
+            </div>
+            <div>
+                <table id="passengerDetailstable" class="table table-bordered">
+                    <thead>
+                        <th>S.no</th>
+                        <th>Passenger Name</th>
+                        <th>Passenger Mail</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Contact</th>
+                    </thead>
+                    <tbody id="passengerDetailsTableBody">
+                        <tr>
+                            <td colspan="6">No data</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <script>
+
+                    let passengerCount = 0;
+                    document.getElementById("addPassenger").addEventListener("click", function () {
+                        event.preventDefault();
+                        var passenger_name = document.getElementById("passengerName").value;
+                        var passenger_mail = document.getElementById("passengerMail").value;
+                        var passenger_gender = document.getElementById("passengerGender").value;
+                        var passenger_age = document.getElementById("passengerAge").value;
+                        var passenger_contact = document.getElementById("passengerContact").value;
+                        var total_ticket_price = document.getElementById("totalPrice");
+                        var ticket_Price = document.getElementById("ticketPrice");
+
+                        //var add_btn = document.getElementById("addPassenger");
+                        var passengerDetailsTable = document.getElementById("passengerDetailsTableBody");
+                        var defaultRow = passengerDetailsTable.querySelector("tr td['colspan=6']");
+                        var defaultRowCount = passengerDetailsTable.rows.length;
+                       
+                        alert("default no of row : " + defaultRowCount);
+                        if (defaultRow) {
+                            defaultRow.remove();
+                        }
+
+                        passengerCount++;
+                        var newPassengerDetailsTable =  document.getElementById("passengerDetailsTableBody");
+                        var newRow = newPassengerDetailsTable.insertRow();
+                        newRow.insertCell(0).innerHTML = passengerCount;
+                        newRow.insertCell(1).innerHTML = passenger_name;
+                        newRow.insertCell(2).innerHTML = passenger_mail;
+                        newRow.insertCell(3).innerHTML = passenger_gender;
+                        newRow.insertCell(4).innerHTML = passenger_age;
+                        newRow.insertCell(5).innerHTML = passenger_contact;
+                        total_ticket_price.value = ticket_Price.value*passengerCount;
+                    });
+
+
+                
+                </script>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link th:href="@{/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.css}" rel="stylesheet">
+  <!--    <link href="../static/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">-->
+  <style>
+    #makePayment {
+        display: none;
+    }
+  </style>
+</head>
+
+<body>
+<div th:insert="~{header-fragment :: header}"></div>
+
+<div>
+  <form>
+    <div class="container  card-body">
+      <div class="row mb-3">
+
+        <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+          <label for="tripId" class="form-label">Trip Id</label>
+          <input th:value="${seatDisplayDto.tripId}" type="text" class="form-control" id="tripId"
+                 readonly>
+          <!--                        <input type="text" class="form-control" id="formLoc" readonly>-->
+        </div>
+
+
+        <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+          <label for="formLoc" class="form-label">From Location</label>
+          <input th:value="${seatDisplayDto.fromLocation}" type="text" class="form-control" id="formLoc"
+                 readonly>
+          <!--                        <input type="text" class="form-control" id="formLoc" readonly>-->
+        </div>
+        <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+          <label for="toLoc" class="form-label">To Location</label>
+          <input th:value="*{seatDisplayDto.toLocation}" type="text" class="form-control" id="toLoc"
+                 readonly>
+          <!--                        <input type="text" class="form-control" id="toLoc" readonly>-->
+        </div>
+        <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+          <label for="tripDate" class="form-label">Trip Date</label>
+          <input th:value="*{seatDisplayDto.tripDate}" type="text" class="form-control" id="tripDate"
+                 readonly>
+          <!--                        <input type="date" class="form-control" id="tripDate" readonly>-->
+        </div>
+        <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+          <label for="ticketPrice" class="form-label">Ticket Price</label>
+          <input th:value="*{seatDisplayDto.ticketPrice}" type="text" class="form-control"
+                 id="ticketPrice" readonly>
+          <!--                        <input type="number" class="form-control" id="ticketPrice">-->
+        </div>
+        <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+          <label for="totalTicketPrice" class="form-label">Total Ticket Price</label>
+          <!--                                        <input th:value="*{seatDisplayDto.ticketPrice}" type="text" class="form-control" id="totalTicketPrice" readonly>-->
+          <input type="number" class="form-control" id="totalTicketPrice" readonly>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+          <label for="passengerName" class="form-label">Passenger Name</label>
+          <!--                <input th:field="*{tripDate}" type="text" class="form-control" id="passengerName">-->
+          <input type="text" class="form-control" id="passengerName">
+          <!--                        <p th:errors="*{appointmentDate}" class="text-danger errTxt"-->
+          <!--                           th:if="${#fields.hasErrors('appointmentDate')}"></p>-->
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4">
+          <label for="passenngerSeat" class="form-label">Seat Number: </label>
+          <select class="form-select" id="passenngerSeat" aria-label="Default select example">
+            <option th:value="-1" selected>SELECT</option>
+            <option th:each="seat: ${seatList}" th:value="${seat.seatName}" th:text="${seat.seatName}">
+            </option>
+          </select>
+          <!--                        <p th:errors="*{departmentId}" class="text-danger errTxt"></p>-->
+        </div>
+        <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+          <label for="passengerMail" class="form-label">Passenger Mail</label>
+          <!--                <input th:field="*{tripDate}" type="text" class="form-control" id="passengerName">-->
+          <input type="text" class="form-control" id="passengerMail">
+          <!--                        <p th:errors="*{appointmentDate}" class="text-danger errTxt"-->
+          <!--                           th:if="${#fields.hasErrors('appointmentDate')}"></p>-->
+        </div>
+        <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+          <label for="passengerGender" class="form-label">Passenger Gender</label>
+          <!--                <input th:field="*{tripDate}" type="text" class="form-control" id="passengerName">-->
+          <input type="text" class="form-control" id="passengerGender">
+          <!--                        <p th:errors="*{appointmentDate}" class="text-danger errTxt"-->
+          <!--                           th:if="${#fields.hasErrors('appointmentDate')}"></p>-->
+        </div>
+        <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+          <label for="passengerAge" class="form-label">Passenger Age</label>
+          <!--                <input th:field="*{tripDate}" type="text" class="form-control" id="passengerName">-->
+          <input type="number" class="form-control" id="passengerAge">
+          <!--                        <p th:errors="*{appointmentDate}" class="text-danger errTxt"-->
+          <!--                           th:if="${#fields.hasErrors('appointmentDate')}"></p>-->
+        </div>
+        <div class="mb-3 col-lg-2 col-md-2 col-sm-12">
+          <label for="passengerContact" class="form-label">Passenger Contact</label>
+          <!--                <input th:field="*{tripDate}" type="text" class="form-control" id="passengerName">-->
+          <input type="text" class="form-control" id="passengerContact">
+          <!--                        <p th:errors="*{appointmentDate}" class="text-danger errTxt"-->
+          <!--                           th:if="${#fields.hasErrors('appointmentDate')}"></p>-->
+        </div>
+        <div>
+          <button id="addPassenger" class="btn btn-success btn-sm">Add Passenger</button>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div>
+          <table class="table table-responsive table-bordered">
+            <thead class="table-info text-center">
+            <th>S.no</th>
+            <th>Passenger Name</th>
+            <th>Seat Number</th>
+            <th>Passenger Mail</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Contact</th>
+            <th>Action</th>
+            </thead>
+            <tbody id="passengerDetailsTable" class="text-center">
+            <tr>
+              <td colspan="8"> No data</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <button id="makePayment" class="btn btn-light">Make Payment</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <script>
+    var addPassengerBtn = document.getElementById("addPassenger");
+    let passengerCount = 0;
+    addPassengerBtn.addEventListener("click", function () {
+        event.preventDefault();
+        var ticket_price = document.getElementById("ticketPrice");
+        var total_ticket_price = document.getElementById("totalTicketPrice");
+        var passenger_name = document.getElementById("passengerName").value;
+        var passenger_seat = document.getElementById("passenngerSeat").value;
+        var passenger_mail = document.getElementById("passengerMail").value;
+        var passenger_gender = document.getElementById("passengerGender").value;
+        var passenger_age = document.getElementById("passengerAge").value;
+        var passenger_contact = document.getElementById("passengerContact").value;
+        // var passenger_details_table = document.getElementById("passengerDetailsTable");
+        // var no_data_row = document.getElementById("passengerDetailsTable").querySelector("tr td[colspan='8']");
+        var no_data_row = document.querySelector("#passengerDetailsTable tr td[colspan='8']");
+
+        // var no_data_row = document.getElementById("passengerDetailsTable").querySelector("tr");
+
+        if (no_data_row) {
+            no_data_row.parentElement.remove();
+        }
+        var passenger_details_table = document.getElementById("passengerDetailsTable");
+        passengerCount++;
+        var newRow = passenger_details_table.insertRow();
+        newRow.insertCell(0).innerHTML = passengerCount;
+        newRow.insertCell(1).innerHTML = passenger_name;
+        newRow.insertCell(2).innerHTML = passenger_seat;
+        newRow.insertCell(3).innerHTML = passenger_mail;
+        newRow.insertCell(4).innerHTML = passenger_gender;
+        newRow.insertCell(5).innerHTML = passenger_age;
+        newRow.insertCell(6).innerHTML = passenger_contact;
+        total_ticket_price.value = ticket_price.value * passengerCount;
+        alert(total_ticket_price.value);
+        var paymentBtn = document.getElementById("makePayment");
+        if (passengerCount > 0) {
+            paymentBtn.style.display = "block";
+        }
+    })
+
+
+    // Get the tripId value from the input field
+    var tripId = document.getElementById("tripId").value;
+    var makePaymentBtn = document.getElementById("makePayment");
+    makePaymentBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        var passengerDetails = [];
+        var rows = document.getElementById("passengerDetailsTable").getElementsByTagName("tr");
+        // var rows = document.querySelectorAll("#passengerDetailsTable tr");
+        for (var i = 0; i < rows.length; i++) {
+            alert(rows[i])
+        }
+        alert(rows.length)
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var passenger = {
+                //the names should match the fiels names in the class properrt or else we should use @Jsonproperties in the class fields to match the names;
+                passengerName: row.cells[1].textContent,
+                passengerSeat: row.cells[2].textContent,
+                passengerMail: row.cells[3].textContent,
+                passengerGender: row.cells[4].textContent,
+                age: row.cells[5].textContent,
+                passengerContact: row.cells[6].textContent
+            };
+            passengerDetails.push(passenger);
+        }
+        var totalTicketPrice = document.getElementById("totalTicketPrice").value;
+        // Prepare data to send to backend
+        var data = {
+            passengerDtoList: passengerDetails,
+            totalTicketPrice: totalTicketPrice
+        };
+        // Send the data to the backend using AJAX (you can use fetch or XMLHttpRequest)
+        fetch("http://localhost:8080/makePayment/" + tripId, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Response from server:", data);
+                if (data.success) {
+                    const paymentOptions = JSON.parse(data.paymentOptions);
+
+                    alert(paymentOptions.order_id);
+                    var options = {
+                        key: paymentOptions.key,
+                        amount: paymentOptions.amount,
+                        currency: paymentOptions.currency,
+                        order_id: paymentOptions.order_id,
+                        handler: function (response) {
+                            if (response.razorpay_payment_id) {
+                                var paymentId = response.razorpay_payment_id;
+                                var orderId = response.razorpay_order_id;
+                                alert(response.razorpay_order_id);
+                                alert(response.razorpay_payment_id);
+                                alert("paymentSuccessful");
+                                //********
+                                fetch('http://localhost:8080/savePaymentId', {
+                                    method: 'POST',
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        paymentId: paymentId,
+                                        order_Id: response.razorpay_order_id
+
+                                    })
+                                  })
+                                  .then(response => response.json())
+                                        .then(data => {
+                                            console.log("payment Id saved successfully" + data)
+                                        })
+                                //*****************
+
+                            } else {
+                                alert("Payment failed")
+                            }
+
+                        },
+                        prefill: {
+                            name: paymentOptions.name,
+                            email: paymentOptions.email,
+                            contact: paymentOptions.contact
+                        }
+
+
+
+                    }
+
+                    var razPay = new Razorpay(options);
+                    razPay.open();
+                } else {
+                    alert("ERROR in payment initiation");
+                }
+            })
+            .catch(error => {
+                console.log("ERROR: ", error);
+                alert("Issue with processing the payment");
+            });
+    });
+
+  </script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</div>
+</body>
+
+</html>

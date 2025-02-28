@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link th:href="@{/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.css}" rel="stylesheet">
+    <style>
+
+        .errTxt {
+            margin-top: 1.2px;
+            margin-bottom: 0.8px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div>
+        <a th:href="@{/}" class="btn btn-light btn-sm">Go back to Login Page</a>
+    </div>
+    <form method="post" th:action="@{/createUser}" th:object="${userModelObject}">
+
+        <div class="row mb-3">
+
+            <div>
+                <label for="userName" class="form-label">User Name: </label>
+                <input th:field="*{userName}" type="text" class="form-control" id="userName" placeholder="user name..">
+                <p th:errors="*{userName}" class="text-danger errTxt mt-0" th:if="${#fields.hasErrors('userName')}"></p>
+            </div>
+
+            <div>
+                <label for="userMail" class="form-label">User Mail: </label>
+                <input th:field="*{userMail}" type="email" class="form-control" id="userMail" placeholder="user mail..">
+                <p th:errors="*{userMail}" class="text-danger errTxt mt-0" th:if="${#fields.hasErrors('userMail')}"></p>
+            </div>
+
+            <div>
+                <label for="password" class="form-label">Password: </label>
+                <input th:field="*{password}" type="password" class="form-control" id="password" placeholder="password">
+                <p th:errors="*{password}" class="text-danger errTxt mt-0" th:if="${#fields.hasErrors('password')}"></p>
+            </div>
+
+            <div>
+                <label for="contact" class="form-label">Contact number: </label>
+                <input th:field="*{userContact}" type="password" class="form-control" id="contact"
+                       placeholder="contact">
+                <p th:errors="*{userContact}" class="text-danger errTxt mt-0" th:if="${#fields.hasErrors('userContact')}"></p>
+            </div>
+
+        </div>
+
+        <div class="row mb-3">
+            <div>
+                <button class="btn btn-sm btn-success">Create User</button>
+            </div>
+
+        </div>
+
+
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking List</title>
+    <link th:href="@{/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.css}" rel="stylesheet">
+
+</head>
+<body>
+<div th:insert="~{header-fragment :: header}"></div>
+
+
+    <div class="container">
+        <form th:object="${USerBookingListDto}">
+        <div class="card">
+            <h4 class="card-header text-bg-dark text-center">Travel History / Booked Tickets</h4>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="text-center table-info">
+                            <th>S.no</th>
+                            <th>Bus Name</th>
+                            <th>Bus Number</th>
+                            <th>Trip Id</th>
+                            <th>Trip Date</th>
+                            <th>From Location</th>
+                            <th>departureTime</th>
+                            <th>To Location</th>
+                            <th>arrivalTime</th>
+                            <th>Total Number of Seats</th>
+                            <th>Ticket cost</th>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${#lists.isEmpty(USerBookingListDto)}">
+                                <td colspan="11">No booking history...</td>
+                            </tr>
+                        <tr th:each="booking,bookingStat:${USerBookingListDto}">
+                            <td th:text="${bookingStat.count}"></td>
+                            <td th:text="${booking.busTrip.busTravelName}"></td>
+                            <td th:text="${booking.busTrip.busRegistrationNumber}"></td>
+                            <td th:text="${booking.busTrip.busTripId}"></td>
+                            <td th:text="${booking.busTrip.tripDate}"></td>
+                            <td th:text="${booking.busTrip.fromLocation}"></td>
+                            <td th:text="${booking.busTrip.departureTime}"></td>
+                            <td th:text="${booking.busTrip.toLocation}"></td>
+                            <td th:text="${booking.busTrip.arrivalTime}"></td>
+                            <td th:text="${booking.totalNoOfTickets}"></td>
+                            <td th:text="${booking.totalTicketCost}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+    </div>
+</form>
+    </div>
+</body>
+</html>

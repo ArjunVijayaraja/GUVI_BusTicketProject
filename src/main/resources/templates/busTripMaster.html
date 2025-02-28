@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Bus Trip</title>
+    <link th:href="@{/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.css}" rel="stylesheet">
+
+</head>
+<body>
+<div th:insert="~{header-fragment :: header}"></div>
+
+<div class="container">
+    <form method="post" th:action="@{/admin/create-trip}" th:object="${busTripData}">
+        <div>
+            <div class="row mb-3">
+                <div class="mb-1 col-lg-3 col-md-3">
+                    <label for="busName" class="form-label">Bus Name:</label>
+                    <input th:field="*{busTravelName}" class="form-control" id="busName" type="text"
+                           placeholder="Travels name">
+                    <p th:errors="*{busTravelName}" class="text-danger"
+                       th:if="${#fields.hasErrors('busTravelName')}"></p>
+                </div>
+
+                <div class="mb-1 col-lg-3 col-md-3">
+                    <label for="regNumber" class="form-label">Bus Registration number:</label>
+                    <input th:field="*{busRegistrationNumber}" class="form-control" id="regNumber" type="text"
+                           placeholder="Registration number">
+                    <p th:errors="*{busRegistrationNumber}" class="text-danger"
+                       th:if="${#fields.hasErrors('busRegistrationNumber')}"></p>
+                </div>
+
+                <div class="mb-1 col-lg-3 col-md-3">
+                    <label for="tripDate" class="form-label">Trip Date:</label>
+                    <input th:field="*{tripDate}" class="form-control" id="tripDate" type="date"
+                           placeholder="Trip Date">
+                    <p th:errors="*{tripDate}" class="text-danger" th:if="${#fields.hasErrors('tripDate')}"></p>
+                </div>
+
+                <div class="mb-1 col-lg-3 col-md-3">
+                    <label for="fromLoc" class="form-label">From Location:</label>
+                    <input th:field="*{fromLocation}" class="form-control" id="fromLoc" type="text"
+                           placeholder="From Location">
+                    <p th:errors="*{fromLocation}" class="text-danger" th:if="${#fields.hasErrors('fromLocation')}"></p>
+                </div>
+
+                <div class="mb-1 col-lg-3 col-md-3">
+                    <label for="depTime" class="form-label">Departure Time:</label>
+                    <input th:field="*{departureTime}" class="form-control" id="depTime" type="time">
+                    <p th:errors="*{departureTime}" class="text-danger"
+                       th:if="${#fields.hasErrors('departureTime')}"></p>
+                </div>
+
+                <div class="mb-1 col-lg-3 col-md-3">
+                    <label for="toLoc" class="form-label">To Location:</label>
+                    <input th:field="*{toLocation}" class="form-control" id="toLoc" type="text"
+                           placeholder="To Location">
+                    <p th:errors="*{toLocation}" class="text-danger" th:if="${#fields.hasErrors('toLocation')}"></p>
+                </div>
+
+                <div class="mb-1 col-lg-3 col-md-3">
+                    <label for="arrTime" class="form-label">Arrival Time:</label>
+                    <input th:field="*{arrivalTime}" class="form-control" id="arrTime" type="time">
+                    <p th:errors="*{arrivalTime}" class="text-danger" th:if="${#fields.hasErrors('arrivalTime')}"></p>
+                </div>
+
+                <div class="mb-1 col-lg-3 col-md-3">
+                    <label for="ticketPrice" class="form-label">Ticket Price:</label>
+                    <input th:field="*{ticketPrice}" class="form-control" id="ticketPrice" type="number">
+                    <p th:errors="*{ticketPrice}" class="text-danger" th:if="${#fields.hasErrors('ticketPrice')}"></p>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="mb-1 col-lg-3 col-md-3">
+                    <label for="seatName" class="form-label">Seat Name:</label>
+                    <input  class="form-control" id="seatName" type="text">
+                </div>
+
+                <div class="mb-1 col-lg-3 col-md-3">
+                    <label for="seatAvailability" class="form-label">Seat availability:</label>
+                    <input class="form-control" id="seatAvailability" type="text">
+                </div>
+
+                <div>
+                    <button id="seatAddBtn" type="button" class="btn btn-sm btn-primary">Add Seat</button>
+                </div>
+            </div>
+
+
+            <div class="row mb-3">
+                <div class=" table-responsive ">
+                    <table class="table table-bordered">
+                        <thead class="text-center">
+                        <th>S.No</th>
+                        <th>Seat Name</th>
+                        <th>Seat Availability</th>
+                        <th>Action</th>
+                        </thead>
+                        <tbody id="tBody-seatDetails" class="text-center">
+                        <tr>
+                            <td colspan='4'> No data</td>
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+                <button type="submit" class="btn btn-sm btn-success">Create Trip</button>
+
+            </div>
+        </div>
+
+    </form>
+
+    <script>
+        var seatAddBtn =document.getElementById("seatAddBtn");
+
+        seatAddBtn.addEventListener("click",function(e){
+            e.preventDefault();
+
+        var v_seatName = document.getElementById("seatName").value;
+        var v_seatAvailability = document.getElementById("seatAvailability").value;
+<!--        alert(v_seatName,v_seatAvailability);-->
+
+        if(v_seatName === "" || v_seatAvailability === ""){
+        alert("Seat name or seat availability should not be empty");
+          return;
+        }
+
+
+        var seatDetailsTable = document.getElementById("tBody-seatDetails");
+
+        //removing the no data row
+        var nodataRow = seatDetailsTable.querySelector("tr td[colspan='4']");
+        if(nodataRow){
+            nodataRow.parentElement.remove();
+        }
+<!--        alert("hi");-->
+        
+        alert(seatDetailsTable.rows.length);
+        const rowCount = seatDetailsTable.rows.length + 1;
+        alert(rowCount);
+
+        var row = seatDetailsTable.insertRow();
+        row.innerHTML=`
+
+        <td>
+            <span>${rowCount}</span>
+        </td>
+        <td>
+            <input type='hidden' name="seatDetails[${rowCount-1}].seatName" value="${v_seatName}">
+             <span>${v_seatName}</span>
+        </td>
+
+         <td>
+            <input type='hidden' name="seatDetails[${rowCount-1}].seatAvailability" value="${v_seatAvailability}">
+             <span>${v_seatAvailability}</span>
+        </td>
+        `
+
+        });
+
+    </script>
+    <script src="../static/bootstrap/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
+</div>
+
+
+</body>
+</html>
